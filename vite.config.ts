@@ -14,13 +14,14 @@ export default defineConfig({
       formats: ["umd", "es"],
     },
     rollupOptions: {
-      external: ['react', 'react/jsx-runtime', 'react-dom', 'tailwindcss'],
+      external: ['react', 'react/jsx-runtime', 'react-dom', 'tailwindcss', 'react-hook-form'],
       output: {
         globals: {
           react: 'React',
           'react/jsx-runtime': 'react/jsx-runtime',
           'react-dom': 'ReactDOM',
           tailwindcss: 'tailwindcss',
+          'react-hook-form': 'react-hook-form',
         },
       },
     },

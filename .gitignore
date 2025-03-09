@@ -25,3 +25,5 @@ index.html
 *.njsproj
 *.sln
 *.sw?
+
+*storybook.log
