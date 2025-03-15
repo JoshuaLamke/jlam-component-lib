@@ -1,15 +1,18 @@
+import { format } from "../../../";
 import { Controller, FieldValues, UseFormReturn } from "react-hook-form";
-import { TextInputFieldProps } from "./Field";
+import { MaskedTextInputFieldProps } from "./Field";
+import { InputMask, Mask } from "@react-input/mask";
 import { FieldAria, useTextField } from "react-aria";
 import { forwardRef, Ref, RefObject } from "react";
 
-export interface TextInputEditViewProps<TData extends FieldValues>
+export interface MaskedTextInputEditViewProps<TData extends FieldValues>
   extends Omit<
-    TextInputFieldProps<TData>,
-    | "EditView"
+    MaskedTextInputFieldProps<TData>,
     | "ReadView"
+    | "EditView"
     | "state"
     | "noValueMessage"
+    | "formMethods"
     | "helperText"
     | "label"
   > {
@@ -17,19 +20,19 @@ export interface TextInputEditViewProps<TData extends FieldValues>
   fieldProps: FieldAria["fieldProps"];
 }
 
-const TextInputEditViewInner = <TData extends FieldValues = FieldValues>(
+const MaskedTextInputEditViewInner = <TData extends FieldValues = FieldValues>(
   {
     name,
-    placeholder,
     size,
     onChange,
     onBlur,
     formMethods,
+    required,
+    maskOptions,
+    fieldProps,
     disabled,
     readOnly,
-    required,
-    fieldProps,
-  }: TextInputEditViewProps<TData>,
+  }: MaskedTextInputEditViewProps<TData>,
   inputRef: Ref<HTMLElement | null>
 ) => {
   const {
@@ -39,14 +42,24 @@ const TextInputEditViewInner = <TData extends FieldValues = FieldValues>(
 
   const isInvalid = !!errors[name];
 
+  const { unformat } = new Mask(maskOptions);
+  const formatInputValue = (inputValue: string) =>
+    format(inputValue, {
+      mask: maskOptions.mask,
+      replacement: maskOptions.replacement,
+      separate: maskOptions.separate,
+      showMask: maskOptions.showMask,
+    });
+
   return (
     <Controller
       control={control}
       name={name}
       render={({ field }) => {
         const compositeOnChange = (value: string) => {
-          onChange?.(value);
-          field.onChange(value);
+          const newValue = unformat(value);
+          field.onChange(newValue);
+          onChange?.(newValue);
         };
         const compositeOnBlur = () => {
           onBlur?.();
@@ -61,8 +74,7 @@ const TextInputEditViewInner = <TData extends FieldValues = FieldValues>(
             isReadOnly: readOnly,
             isRequired: required,
             isInvalid: isInvalid,
-            placeholder,
-            value: field.value ?? "",
+            value: formatInputValue(field.value ?? ""),
             type: "text",
             ...fieldProps,
           },
@@ -70,7 +82,8 @@ const TextInputEditViewInner = <TData extends FieldValues = FieldValues>(
         );
 
         return (
-          <input
+          <InputMask
+            {...maskOptions}
             {...textInputProps}
             className={`
               rounded-md py-1 px-2 outline 
@@ -89,12 +102,12 @@ const TextInputEditViewInner = <TData extends FieldValues = FieldValues>(
   );
 };
 
-const TextInputEditView = forwardRef(TextInputEditViewInner) as <
+const MaskedTextInputEditView = forwardRef(MaskedTextInputEditViewInner) as <
   TData extends FieldValues = FieldValues
 >(
-  props: TextInputEditViewProps<TData> & {
+  props: MaskedTextInputEditViewProps<TData> & {
     ref?: Ref<HTMLElement | null>;
   }
-) => ReturnType<typeof TextInputEditViewInner>;
+) => ReturnType<typeof MaskedTextInputEditViewInner>;
 
-export default TextInputEditView;
+export default MaskedTextInputEditView;
