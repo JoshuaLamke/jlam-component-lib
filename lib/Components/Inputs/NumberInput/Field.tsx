@@ -1,44 +1,48 @@
 import {
-  useFormContext,
-  UseFormReturn,
   FieldValues,
   Path,
+  useFormContext,
+  UseFormReturn,
 } from "react-hook-form";
-import TextInputReadView, { TextInputReadViewProps } from "./ReadView";
-import TextInputEditView, { TextInputEditViewProps } from "./EditView";
+import NumberInputReadView, { NumberInputReadViewProps } from "./ReadView";
+import NumberInputEditView, { NumberInputEditViewProps } from "./EditView";
 import { Field, FieldProps, omit } from "../../../";
-import { AriaTextFieldOptions, FieldAria } from "react-aria";
-import {
-  ForwardRefExoticComponent,
-  ReactNode,
-  Ref,
-  RefAttributes,
-} from "react";
+import { ForwardRefExoticComponent, Ref, RefAttributes } from "react";
+import { FieldAria } from "react-aria";
 
-export interface TextInputFieldProps<TData extends FieldValues> {
-  label?: ReactNode;
+export interface NumberInputFieldProps<TData extends FieldValues> {
+  label?: React.ReactNode;
   name: Path<TData>;
   placeholder?: string;
   size?: "sm" | "md" | "lg" | "xl";
-  onChange?: (val: string) => void;
+  onChange?: (val: number) => void;
   onBlur?: () => void;
   state?: "read" | "edit";
   readOnly?: boolean;
   disabled?: boolean;
   required?: boolean;
-  helperText?: ReactNode;
+  helperText?: string;
+  minValue?: number;
+  maxValue?: number;
+  formatOptions?: Intl.NumberFormatOptions;
+  // tooltip?: {
+  //   content: React.ReactNode;
+  //   Icon?: React.ReactElement<HTMLButtonElement>;
+  //   defaultIconProps?: DefaultTipIconProps;
+  //   tooltipProps?: Omit<TooltipProps, "children" | "content">;
+  // };
   ReadView?: ForwardRefExoticComponent<
-    TextInputReadViewProps & RefAttributes<HTMLElement>
+    NumberInputReadViewProps & RefAttributes<HTMLElement>
   >;
   EditView?: ForwardRefExoticComponent<
-    TextInputEditViewProps<TData> & RefAttributes<HTMLElement>
+    NumberInputEditViewProps<TData> & RefAttributes<HTMLElement>
   >;
   noValueMessage?: string;
   formMethods?: UseFormReturn<TData>;
 }
 
-const TextInputField = <TData extends FieldValues = FieldValues>(
-  props: TextInputFieldProps<TData>
+const NumberInputField = <TData extends FieldValues = FieldValues>(
+  props: NumberInputFieldProps<TData>
 ) => {
   const {
     ReadView,
@@ -54,12 +58,12 @@ const TextInputField = <TData extends FieldValues = FieldValues>(
 
   const formMethods = propFormMethods ?? useFormContext();
 
-  const readViewProps: Omit<TextInputReadViewProps, "fieldProps"> = {
+  const readViewProps: Omit<NumberInputReadViewProps, "fieldProps"> = {
     inputValue: formMethods.getValues(name),
     noValueMessage,
   };
 
-  const editViewProps: Omit<TextInputEditViewProps<TData>, "fieldProps"> = {
+  const editViewProps: Omit<NumberInputEditViewProps<TData>, "fieldProps"> = {
     ...omit(props, [
       "ReadView",
       "EditView",
@@ -79,7 +83,7 @@ const TextInputField = <TData extends FieldValues = FieldValues>(
     ReadView ? (
       <ReadView {...readViewProps} ref={inputRef} fieldProps={fieldProps} />
     ) : (
-      <TextInputReadView
+      <NumberInputReadView
         {...readViewProps}
         ref={inputRef}
         fieldProps={fieldProps}
@@ -93,7 +97,7 @@ const TextInputField = <TData extends FieldValues = FieldValues>(
     EditView ? (
       <EditView {...editViewProps} ref={inputRef} fieldProps={fieldProps} />
     ) : (
-      <TextInputEditView
+      <NumberInputEditView
         {...editViewProps}
         ref={inputRef}
         fieldProps={fieldProps}
@@ -125,4 +129,4 @@ const TextInputField = <TData extends FieldValues = FieldValues>(
   );
 };
 
-export default TextInputField;
+export default NumberInputField;

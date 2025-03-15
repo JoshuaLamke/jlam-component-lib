@@ -84,7 +84,8 @@
   },
   "dependencies": {
     "@react-input/mask": "^2.0.4",
-    "react-aria": "^3.37.0"
+    "react-aria": "^3.37.0",
+    "react-stately": "^3.36.1"
   },
   "eslintConfig": {
     "extends": [

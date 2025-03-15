@@ -1,7 +1,7 @@
 import { Controller, FieldValues, UseFormReturn } from "react-hook-form";
 import { TextInputFieldProps } from "./Field";
 import { FieldAria, useTextField } from "react-aria";
-import { ForwardedRef, forwardRef, Ref, RefObject, useRef } from "react";
+import { forwardRef, Ref, RefObject } from "react";
 
 export interface TextInputEditViewProps<TData extends FieldValues>
   extends Omit<
@@ -39,39 +39,40 @@ const TextInputEditViewInner = <TData extends FieldValues = FieldValues>(
 
   const isInvalid = !!errors[name];
 
-  const { inputProps: textInputProps } = useTextField(
-    {
-      onChange,
-      onBlur,
-      isDisabled: disabled,
-      isReadOnly: readOnly,
-      isRequired: required,
-      isInvalid: isInvalid,
-      placeholder,
-      type: "text",
-      ...fieldProps,
-    },
-    inputRef as RefObject<HTMLInputElement | null>
-  );
-
   return (
     <Controller
       control={control}
       name={name}
-      render={({ field }) => (
-        <input
-          {...textInputProps}
-          value={field.value ?? ""}
-          onChange={(e) => {
-            const newValue = e.target.value;
-            field.onChange(newValue);
-            onChange?.(newValue);
-          }}
-          onBlur={() => {
-            field.onBlur();
-            onBlur?.();
-          }}
-          className={`
+      render={({ field }) => {
+        const compositeOnChange = (value: string) => {
+          onChange?.(value);
+          field.onChange(value);
+        };
+        const compositeOnBlur = () => {
+          onBlur?.();
+          field.onBlur();
+        };
+
+        const { inputProps: textInputProps } = useTextField(
+          {
+            onChange: compositeOnChange,
+            onBlur: compositeOnBlur,
+            isDisabled: disabled,
+            isReadOnly: readOnly,
+            isRequired: required,
+            isInvalid: isInvalid,
+            placeholder,
+            value: field.value ?? "",
+            type: "text",
+            ...fieldProps,
+          },
+          inputRef as RefObject<HTMLInputElement | null>
+        );
+
+        return (
+          <input
+            {...textInputProps}
+            className={`
             rounded-md py-1 px-2 outline 
             focus:ring-[1.5px]
             disabled:bg-gray-200 read-only:bg-gray-200
@@ -81,8 +82,9 @@ const TextInputEditViewInner = <TData extends FieldValues = FieldValues>(
                 : "outline-gray-300 focus:ring-black focus:outline-black hover:outline-gray-700"
             }
           `}
-        />
-      )}
+          />
+        );
+      }}
     />
   );
 };
