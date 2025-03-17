@@ -13,7 +13,12 @@ import MaskedTextInputEditView, {
 import { Field, FieldProps, omit } from "../../../";
 import { InputMaskProps, Replacement } from "@react-input/mask";
 import { FieldAria } from "react-aria";
-import { ForwardRefExoticComponent, Ref, RefAttributes } from "react";
+import {
+  ForwardRefExoticComponent,
+  ReactNode,
+  Ref,
+  RefAttributes,
+} from "react";
 
 export interface InputMaskOptions extends InputMaskProps {
   mask: string;
@@ -21,7 +26,7 @@ export interface InputMaskOptions extends InputMaskProps {
 }
 
 export interface MaskedTextInputFieldProps<TData extends FieldValues> {
-  label?: React.ReactNode;
+  label?: ReactNode;
   name: Path<TData>;
   maskOptions: InputMaskOptions;
   size?: "sm" | "md" | "lg" | "xl";
@@ -33,7 +38,7 @@ export interface MaskedTextInputFieldProps<TData extends FieldValues> {
   required?: boolean;
   helperText?: string;
   // tooltip?: {
-  //   content: React.ReactNode;
+  //   content: ReactNode;
   //   Icon?: React.ReactElement<HTMLButtonElement>;
   //   defaultIconProps?: DefaultTipIconProps;
   //   tooltipProps?: Omit<TooltipProps, "children" | "content">;

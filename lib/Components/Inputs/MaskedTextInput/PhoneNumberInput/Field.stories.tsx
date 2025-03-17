@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import TextInputField from "./Field";
+import PhoneNumberInputField from "./Field";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
-const meta: Meta<typeof TextInputField> = {
-  component: TextInputField,
+const meta: Meta<typeof PhoneNumberInputField> = {
+  component: PhoneNumberInputField,
   decorators: [
     (Story) => {
       const formMethods = useForm();
@@ -16,6 +16,15 @@ const meta: Meta<typeof TextInputField> = {
     },
   ],
   argTypes: {
+    countryCode: {
+      description:
+        "The country code value when using the International phone number format.",
+      table: {
+        defaultValue: {
+          summary: "",
+        },
+      },
+    },
     disabled: {
       description:
         "Whether the input is disabled or not. The input value will not be focusable.",
@@ -30,7 +39,7 @@ const meta: Meta<typeof TextInputField> = {
     },
     EditView: {
       description:
-        "Alternative component to render in the edit view. Should expect TextInputEditViewProps and be a forwarded ref component.",
+        "Alternative component to render in the edit view. Should expect PhoneNumberInputEditViewProps and be a forwarded ref component.",
       control: false,
       table: {
         defaultValue: {
@@ -108,20 +117,9 @@ const meta: Meta<typeof TextInputField> = {
         },
       },
     },
-    placeholder: {
-      description: "Placeholder text to show when the input is empty.",
-      control: {
-        type: "text",
-      },
-      table: {
-        defaultValue: {
-          summary: "",
-        },
-      },
-    },
     ReadView: {
       description:
-        "Alternative component to render in the read view. Should expect TextInputReadViewProps and be a forwarded ref component.",
+        "Alternative component to render in the read view. Should expect PhoneNumberInputReadViewProps and be a forwarded ref component.",
       control: false,
       table: {
         defaultValue: {
@@ -158,12 +156,7 @@ const meta: Meta<typeof TextInputField> = {
         "The size of the input field and its label, helper text, etc.",
       control: {
         type: "radio",
-        labels: {
-          sm: "sm",
-          md: "md",
-          lg: "lg",
-          xl: "xl",
-        },
+        options: ["sm", "md", "lg", "xl"],
       },
       table: {
         defaultValue: {
@@ -175,14 +168,43 @@ const meta: Meta<typeof TextInputField> = {
       description: "The appearance state the input is in.",
       control: {
         type: "radio",
-        labels: {
-          edit: "edit",
-          read: "read",
-        },
+        options: ["edit", "read"],
       },
       table: {
         defaultValue: {
           summary: "edit",
+        },
+      },
+    },
+    maskOptions: {
+      description:
+        "Options for the input mask. The mask and replacement are already fixed.",
+      control: {
+        type: "object",
+      },
+      table: {
+        defaultValue: {
+          summary: `default mask object`,
+          detail: `{mask: "___-___-____", replacement: { _: /\d/ }}`,
+        },
+        type: {
+          summary: 'Omit<InputMaskOptions, "mask" | "replacement">',
+        },
+      },
+    },
+    phoneNumberFormat: {
+      description: "Mask format for the phone number.",
+      control: {
+        type: "radio",
+        options: [
+          "Standard (With Parentheses)",
+          "International (With Country Code)",
+          "Dashed (No Parentheses)",
+        ],
+      },
+      table: {
+        defaultValue: {
+          summary: "Dashed (No Parentheses)",
         },
       },
     },
@@ -191,21 +213,27 @@ const meta: Meta<typeof TextInputField> = {
 
 export default meta;
 
-type Story = StoryObj<typeof TextInputField>;
+type Story = StoryObj<typeof PhoneNumberInputField>;
 
 export const Basic: Story = {
   args: {
-    label: "Basic Text Input Field",
-    helperText: "Text input helper text.",
-    name: "textInput",
+    label: "Basic Phone Number Input Field",
+    helperText: "Phone Number input helper text.",
+    name: "phoneNumberInput",
+    maskOptions: {
+      showMask: true,
+    },
   },
 };
 
 export const Error: Story = {
   args: {
-    label: "Error Text Input Field",
-    helperText: "Text input helper text.",
-    name: "textInput",
+    label: "Error Phone Number Input Field",
+    helperText: "Phone Number input helper text.",
+    name: "phoneNumberInput",
+    maskOptions: {
+      showMask: true,
+    },
   },
   argTypes: {
     name: {
@@ -215,13 +243,13 @@ export const Error: Story = {
   render: (props) => {
     const formMethods = useForm();
     const errors = {
-      textInput: {
-        message: "Text input error",
+      phoneNumberInput: {
+        message: "Phone Number input error",
         type: "value",
       },
     };
     return (
-      <TextInputField
+      <PhoneNumberInputField
         {...props}
         formMethods={{
           ...formMethods,
@@ -234,10 +262,13 @@ export const Error: Story = {
 
 export const Disabled: Story = {
   args: {
-    label: "Disabled Text Input Field",
-    helperText: "Text input helper text.",
-    name: "textInput",
+    label: "Disabled Phone Number Input Field",
+    helperText: "Phone Number input helper text.",
+    name: "phoneNumberInput",
     disabled: true,
+    maskOptions: {
+      showMask: true,
+    },
   },
   argTypes: {
     disabled: {
@@ -251,10 +282,13 @@ export const Disabled: Story = {
 
 export const ReadOnly: Story = {
   args: {
-    label: "Read Only Text Input Field",
-    helperText: "Text input helper text.",
-    name: "textInput",
+    label: "Read Only Phone Number Input Field",
+    helperText: "Phone Number input helper text.",
+    name: "phoneNumberInput",
     readOnly: true,
+    maskOptions: {
+      showMask: true,
+    },
   },
   argTypes: {
     disabled: {

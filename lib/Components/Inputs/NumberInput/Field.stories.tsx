@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import TextInputField from "./Field";
+import NumberInputField from "./Field";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
-const meta: Meta<typeof TextInputField> = {
-  component: TextInputField,
+const meta: Meta<typeof NumberInputField> = {
+  component: NumberInputField,
   decorators: [
     (Story) => {
       const formMethods = useForm();
@@ -30,11 +30,28 @@ const meta: Meta<typeof TextInputField> = {
     },
     EditView: {
       description:
-        "Alternative component to render in the edit view. Should expect TextInputEditViewProps and be a forwarded ref component.",
+        "Alternative component to render in the edit view. Should expect NumberInputEditViewProps and be a forwarded ref component.",
       control: false,
       table: {
         defaultValue: {
           summary: "undefined",
+        },
+      },
+    },
+    formatOptions: {
+      description:
+        "Options to format the number's display value to the user. Ex: currency or percent.",
+      control: {
+        type: "object",
+      },
+      table: {
+        defaultValue: {
+          summary: "undefined",
+          detail: `For example: {
+            "style": "currency",
+            "currency": "USD",
+            "minimumFractionDigits": 2
+          }`,
         },
       },
     },
@@ -68,6 +85,30 @@ const meta: Meta<typeof TextInputField> = {
       table: {
         defaultValue: {
           summary: "",
+        },
+      },
+    },
+    maxValue: {
+      description: "Maximum allowed number value in the input.",
+      type: "number",
+      control: {
+        type: "number",
+      },
+      table: {
+        defaultValue: {
+          summary: "undefined",
+        },
+      },
+    },
+    minValue: {
+      description: "Minimum allowed number value in the input.",
+      type: "number",
+      control: {
+        type: "number",
+      },
+      table: {
+        defaultValue: {
+          summary: "undefined",
         },
       },
     },
@@ -121,7 +162,7 @@ const meta: Meta<typeof TextInputField> = {
     },
     ReadView: {
       description:
-        "Alternative component to render in the read view. Should expect TextInputReadViewProps and be a forwarded ref component.",
+        "Alternative component to render in the read view. Should expect NumberInputReadViewProps and be a forwarded ref component.",
       control: false,
       table: {
         defaultValue: {
@@ -191,21 +232,21 @@ const meta: Meta<typeof TextInputField> = {
 
 export default meta;
 
-type Story = StoryObj<typeof TextInputField>;
+type Story = StoryObj<typeof NumberInputField>;
 
 export const Basic: Story = {
   args: {
-    label: "Basic Text Input Field",
-    helperText: "Text input helper text.",
-    name: "textInput",
+    label: "Basic Number Input Field",
+    helperText: "Number input helper text.",
+    name: "numberInput",
   },
 };
 
 export const Error: Story = {
   args: {
-    label: "Error Text Input Field",
-    helperText: "Text input helper text.",
-    name: "textInput",
+    label: "Error Number Input Field",
+    helperText: "Number input helper text.",
+    name: "numberInput",
   },
   argTypes: {
     name: {
@@ -215,13 +256,13 @@ export const Error: Story = {
   render: (props) => {
     const formMethods = useForm();
     const errors = {
-      textInput: {
-        message: "Text input error",
+      numberInput: {
+        message: "Number input error",
         type: "value",
       },
     };
     return (
-      <TextInputField
+      <NumberInputField
         {...props}
         formMethods={{
           ...formMethods,
@@ -234,9 +275,9 @@ export const Error: Story = {
 
 export const Disabled: Story = {
   args: {
-    label: "Disabled Text Input Field",
-    helperText: "Text input helper text.",
-    name: "textInput",
+    label: "Disabled Number Input Field",
+    helperText: "Number input helper text.",
+    name: "numberInput",
     disabled: true,
   },
   argTypes: {
@@ -251,9 +292,9 @@ export const Disabled: Story = {
 
 export const ReadOnly: Story = {
   args: {
-    label: "Read Only Text Input Field",
-    helperText: "Text input helper text.",
-    name: "textInput",
+    label: "Read Only Number Input Field",
+    helperText: "Number input helper text.",
+    name: "numberInput",
     readOnly: true,
   },
   argTypes: {

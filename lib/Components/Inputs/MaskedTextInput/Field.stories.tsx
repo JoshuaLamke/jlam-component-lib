@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import TextInputField from "./Field";
+import MaskedTextInputField from "./Field";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
-const meta: Meta<typeof TextInputField> = {
-  component: TextInputField,
+const meta: Meta<typeof MaskedTextInputField> = {
+  component: MaskedTextInputField,
   decorators: [
     (Story) => {
       const formMethods = useForm();
@@ -30,12 +30,18 @@ const meta: Meta<typeof TextInputField> = {
     },
     EditView: {
       description:
-        "Alternative component to render in the edit view. Should expect TextInputEditViewProps and be a forwarded ref component.",
+        "Alternative component to render in the edit view. Should expect MaskedTextInputEditViewProps and be a forwarded ref component.",
       control: false,
       table: {
         defaultValue: {
           summary: "undefined",
         },
+      },
+    },
+    maskOptions: {
+      description: "Options to specify the mask text and replacement value.",
+      control: {
+        type: "object",
       },
     },
     formMethods: {
@@ -108,20 +114,9 @@ const meta: Meta<typeof TextInputField> = {
         },
       },
     },
-    placeholder: {
-      description: "Placeholder text to show when the input is empty.",
-      control: {
-        type: "text",
-      },
-      table: {
-        defaultValue: {
-          summary: "",
-        },
-      },
-    },
     ReadView: {
       description:
-        "Alternative component to render in the read view. Should expect TextInputReadViewProps and be a forwarded ref component.",
+        "Alternative component to render in the read view. Should expect MaskedTextInputReadViewProps and be a forwarded ref component.",
       control: false,
       table: {
         defaultValue: {
@@ -191,21 +186,35 @@ const meta: Meta<typeof TextInputField> = {
 
 export default meta;
 
-type Story = StoryObj<typeof TextInputField>;
+type Story = StoryObj<typeof MaskedTextInputField>;
 
 export const Basic: Story = {
   args: {
-    label: "Basic Text Input Field",
-    helperText: "Text input helper text.",
-    name: "textInput",
+    label: "Basic Masked Text Input Field",
+    helperText: "Masked Text input helper text.",
+    name: "maskedTextInput",
+    maskOptions: {
+      mask: "___-___-___",
+      replacement: {
+        _: /\d/,
+      },
+      showMask: true,
+    },
   },
 };
 
 export const Error: Story = {
   args: {
-    label: "Error Text Input Field",
-    helperText: "Text input helper text.",
-    name: "textInput",
+    label: "Error Masked Text Input Field",
+    helperText: "Masked Text input helper text.",
+    name: "maskedTextInput",
+    maskOptions: {
+      mask: "___-___-___",
+      replacement: {
+        _: /\d/,
+      },
+      showMask: true,
+    },
   },
   argTypes: {
     name: {
@@ -215,13 +224,13 @@ export const Error: Story = {
   render: (props) => {
     const formMethods = useForm();
     const errors = {
-      textInput: {
-        message: "Text input error",
+      maskedTextInput: {
+        message: "Masked Text input error",
         type: "value",
       },
     };
     return (
-      <TextInputField
+      <MaskedTextInputField
         {...props}
         formMethods={{
           ...formMethods,
@@ -234,10 +243,17 @@ export const Error: Story = {
 
 export const Disabled: Story = {
   args: {
-    label: "Disabled Text Input Field",
-    helperText: "Text input helper text.",
-    name: "textInput",
+    label: "Disabled Masked Text Input Field",
+    helperText: "Masked Text input helper text.",
+    name: "maskedTextInput",
     disabled: true,
+    maskOptions: {
+      mask: "___-___-___",
+      replacement: {
+        _: /\d/,
+      },
+      showMask: true,
+    },
   },
   argTypes: {
     disabled: {
@@ -251,10 +267,17 @@ export const Disabled: Story = {
 
 export const ReadOnly: Story = {
   args: {
-    label: "Read Only Text Input Field",
-    helperText: "Text input helper text.",
-    name: "textInput",
+    label: "Read Only Masked Text Input Field",
+    helperText: "Masked Text input helper text.",
+    name: "maskedTextInput",
     readOnly: true,
+    maskOptions: {
+      mask: "___-___-___",
+      replacement: {
+        _: /\d/,
+      },
+      showMask: true,
+    },
   },
   argTypes: {
     disabled: {

@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import TextInputField from "./Field";
+import SSNInputField from "./Field";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
-const meta: Meta<typeof TextInputField> = {
-  component: TextInputField,
+const meta: Meta<typeof SSNInputField> = {
+  component: SSNInputField,
   decorators: [
     (Story) => {
       const formMethods = useForm();
@@ -30,7 +30,7 @@ const meta: Meta<typeof TextInputField> = {
     },
     EditView: {
       description:
-        "Alternative component to render in the edit view. Should expect TextInputEditViewProps and be a forwarded ref component.",
+        "Alternative component to render in the edit view. Should expect SSNInputEditViewProps and be a forwarded ref component.",
       control: false,
       table: {
         defaultValue: {
@@ -108,20 +108,9 @@ const meta: Meta<typeof TextInputField> = {
         },
       },
     },
-    placeholder: {
-      description: "Placeholder text to show when the input is empty.",
-      control: {
-        type: "text",
-      },
-      table: {
-        defaultValue: {
-          summary: "",
-        },
-      },
-    },
     ReadView: {
       description:
-        "Alternative component to render in the read view. Should expect TextInputReadViewProps and be a forwarded ref component.",
+        "Alternative component to render in the read view. Should expect SSNInputReadViewProps and be a forwarded ref component.",
       control: false,
       table: {
         defaultValue: {
@@ -186,26 +175,48 @@ const meta: Meta<typeof TextInputField> = {
         },
       },
     },
+    maskOptions: {
+      description:
+        "Options for the input mask. The mask and replacement are already fixed.",
+      control: {
+        type: "object",
+      },
+      table: {
+        defaultValue: {
+          summary: `default mask object`,
+          detail: `{mask: "___-__-____", replacement: { _: /\d/ }}`,
+        },
+        type: {
+          summary: 'Omit<InputMaskOptions, "mask" | "replacement">',
+        },
+      },
+    },
   },
 };
 
 export default meta;
 
-type Story = StoryObj<typeof TextInputField>;
+type Story = StoryObj<typeof SSNInputField>;
 
 export const Basic: Story = {
   args: {
-    label: "Basic Text Input Field",
-    helperText: "Text input helper text.",
-    name: "textInput",
+    label: "Basic SSN Input Field",
+    helperText: "SSN input helper text.",
+    name: "ssnInput",
+    maskOptions: {
+      showMask: true,
+    },
   },
 };
 
 export const Error: Story = {
   args: {
-    label: "Error Text Input Field",
-    helperText: "Text input helper text.",
-    name: "textInput",
+    label: "Error SSN Input Field",
+    helperText: "SSN input helper text.",
+    name: "ssnInput",
+    maskOptions: {
+      showMask: true,
+    },
   },
   argTypes: {
     name: {
@@ -215,13 +226,13 @@ export const Error: Story = {
   render: (props) => {
     const formMethods = useForm();
     const errors = {
-      textInput: {
-        message: "Text input error",
+      ssnInput: {
+        message: "SSN input error",
         type: "value",
       },
     };
     return (
-      <TextInputField
+      <SSNInputField
         {...props}
         formMethods={{
           ...formMethods,
@@ -234,10 +245,13 @@ export const Error: Story = {
 
 export const Disabled: Story = {
   args: {
-    label: "Disabled Text Input Field",
-    helperText: "Text input helper text.",
-    name: "textInput",
+    label: "Disabled SSN Input Field",
+    helperText: "SSN input helper text.",
+    name: "ssnInput",
     disabled: true,
+    maskOptions: {
+      showMask: true,
+    },
   },
   argTypes: {
     disabled: {
@@ -251,10 +265,13 @@ export const Disabled: Story = {
 
 export const ReadOnly: Story = {
   args: {
-    label: "Read Only Text Input Field",
-    helperText: "Text input helper text.",
-    name: "textInput",
+    label: "Read Only SSN Input Field",
+    helperText: "SSN input helper text.",
+    name: "ssnInput",
     readOnly: true,
+    maskOptions: {
+      showMask: true,
+    },
   },
   argTypes: {
     disabled: {

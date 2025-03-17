@@ -1,8 +1,13 @@
 import type { StorybookConfig } from '@storybook/react-vite';
 
 const config: StorybookConfig = {
+  typescript: {
+    reactDocgenTypescriptOptions: {
+      tsconfigPath: './tsconfig.json',
+      shouldExtractValuesFromUnion: true
+    },
+  },
   "stories": [
-    "../src/**/*.mdx",
     "../lib/**/*.stories.@(js|jsx|mjs|ts|tsx)"
   ],
   "addons": [
