@@ -44,7 +44,7 @@ describe("Inputs/NumberInput/ReadView", () => {
     render(
       <NumberInputReadViewWrapper
         {...textInputFieldProps}
-        inputValue={undefined as any}
+        inputValue={undefined}
         noValueMessage="Nothing here"
       />
     );
