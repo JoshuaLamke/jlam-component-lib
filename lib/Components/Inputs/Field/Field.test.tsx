@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import Field from "./Field";
 import { Ref } from "react";
-describe("Inputs/Field", () => {
+describe("Inputs/Field/Field", () => {
   it("Field will render correctly for basic props", async () => {
     render(
       <Field label="Text Input" description="Helper text" required>

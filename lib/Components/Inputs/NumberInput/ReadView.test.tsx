@@ -5,7 +5,7 @@ const NumberInputReadViewWrapper = (props: NumberInputReadViewProps) => {
   return <NumberInputReadView {...props} />;
 };
 
-describe("NumberInput/ReadView", () => {
+describe("Inputs/NumberInput/ReadView", () => {
   const textInputFieldProps: NumberInputReadViewProps = {
     inputValue: 100,
     fieldProps: {},
