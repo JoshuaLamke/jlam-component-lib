@@ -46,11 +46,10 @@ describe("Inputs/MaskedTextInput/Field", () => {
     disabled: false,
     required: true,
     helperText: "Please write some text",
-    // tooltip: {
-    //   content: "This is a tooltip",
-    //   Icon: <button>Info</button>,
-    //   defaultIconProps: { color: "blue" },
-    // },
+    tooltipProps: {
+      content: "This is a tooltip",
+      Icon: <button>Info</button>,
+    },
     maskOptions: {
       mask: "___ __ ____",
       replacement: {

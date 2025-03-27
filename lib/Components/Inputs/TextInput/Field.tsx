@@ -6,8 +6,8 @@ import {
 } from "react-hook-form";
 import TextInputReadView, { TextInputReadViewProps } from "./ReadView";
 import TextInputEditView, { TextInputEditViewProps } from "./EditView";
-import { Field, FieldProps, omit } from "../../../";
-import { AriaTextFieldOptions, FieldAria } from "react-aria";
+import { Field, FieldProps, omit, TooltipButtonProps } from "../../../";
+import { FieldAria } from "react-aria";
 import {
   ForwardRefExoticComponent,
   ReactNode,
@@ -35,6 +35,7 @@ export interface TextInputFieldProps<TData extends FieldValues> {
   >;
   noValueMessage?: string;
   formMethods?: UseFormReturn<TData>;
+  tooltipProps?: TooltipButtonProps;
 }
 
 const TextInputField = <TData extends FieldValues = FieldValues>(
@@ -50,6 +51,7 @@ const TextInputField = <TData extends FieldValues = FieldValues>(
     state = "edit",
     helperText,
     required,
+    tooltipProps,
   } = props;
 
   const formMethods = propFormMethods ?? useFormContext();
@@ -68,6 +70,7 @@ const TextInputField = <TData extends FieldValues = FieldValues>(
       "formMethods",
       "helperText",
       "label",
+      "tooltipProps",
     ]),
     formMethods,
   };
@@ -100,7 +103,7 @@ const TextInputField = <TData extends FieldValues = FieldValues>(
       />
     );
 
-  // Remove things like description, error message, etc from read view
+  // Remove things like description, error message, tooltip, etc from read view
   const fieldProps: Partial<FieldProps> =
     state === "edit"
       ? {
@@ -109,6 +112,7 @@ const TextInputField = <TData extends FieldValues = FieldValues>(
           isInvalid: !!formMethods.formState.errors[name],
           errorMessage: formMethods.formState.errors[name]?.message as string,
           required,
+          tooltipProps,
         }
       : {
           label,

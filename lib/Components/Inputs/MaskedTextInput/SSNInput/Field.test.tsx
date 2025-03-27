@@ -33,11 +33,10 @@ describe("Inputs/MaskedTextInput/SSNInput/Field", () => {
     disabled: false,
     required: true,
     helperText: "Please write SSN",
-    // tooltip: {
-    //   content: "This is a tooltip",
-    //   Icon: <button>Info</button>,
-    //   defaultIconProps: { color: "blue" },
-    // },
+    tooltipProps: {
+      content: "This is a tooltip",
+      Icon: <button>Info</button>,
+    },
     maskOptions: {
       showMask: true,
     },

@@ -36,11 +36,10 @@ describe("Inputs/RadioInput/YesNoInput/Field", () => {
       disabled: false,
       required: true,
       helperText: "Yes or No",
-      // tooltip: {
-      //   content: "This is a tooltip",
-      //   Icon: <button>Info</button>,
-      //   defaultIconProps: { color: "blue" },
-      // },
+      tooltipProps: {
+        content: "This is a tooltip",
+        Icon: <button>Info</button>,
+      },
     };
 
   it("YesNoInputField should render correctly in edit state", async () => {

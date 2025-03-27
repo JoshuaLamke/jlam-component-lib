@@ -1,5 +1,6 @@
 import { ReactNode, Ref, useRef } from "react";
 import { AriaFieldProps, FieldAria, useField } from "react-aria";
+import { TooltipButton, TooltipButtonProps } from "../../../";
 
 export interface FieldProps extends AriaFieldProps {
   children: (
@@ -8,11 +9,19 @@ export interface FieldProps extends AriaFieldProps {
   ) => ReactNode;
   errorMessage?: ReactNode;
   required?: boolean;
+  tooltipProps?: TooltipButtonProps;
 }
 
 const Field = (props: FieldProps) => {
-  const { description, errorMessage, isInvalid, label, required, children } =
-    props;
+  const {
+    description,
+    errorMessage,
+    isInvalid,
+    label,
+    required,
+    children,
+    tooltipProps,
+  } = props;
   const { descriptionProps, errorMessageProps, fieldProps, labelProps } =
     useField(props);
   const inputRef = useRef<HTMLElement>(null);
@@ -20,9 +29,13 @@ const Field = (props: FieldProps) => {
   return (
     <div className="flex flex-col">
       {label && (
-        <label {...labelProps} className="text-sm font-semibold mb-1">
+        <label
+          {...labelProps}
+          className="text-sm font-semibold mb-1 flex items-center"
+        >
           {label}
-          {required && <span className="text-red-500 ms-1">*</span>}
+          {required && <span className="text-red-500 mx-1">*</span>}
+          {tooltipProps && <TooltipButton className="ms-1" {...tooltipProps} />}
         </label>
       )}
       {children(inputRef, fieldProps)}

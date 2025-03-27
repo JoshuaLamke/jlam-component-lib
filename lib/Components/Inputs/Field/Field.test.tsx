@@ -4,7 +4,12 @@ import { Ref } from "react";
 describe("Inputs/Field/Field", () => {
   it("Field will render correctly for basic props", async () => {
     render(
-      <Field label="Text Input" description="Helper text" required>
+      <Field
+        label="Text Input"
+        description="Helper text"
+        required
+        tooltipProps={{ content: "I am a tooltip" }}
+      >
         {(ref, fieldProps) => {
           return (
             <input
@@ -20,6 +25,7 @@ describe("Inputs/Field/Field", () => {
     expect(screen.getByLabelText("Text Input*")).toBeInTheDocument(); // * is for required
     expect(screen.getByPlaceholderText("Enter text...")).toBeInTheDocument();
     expect(screen.getByText("Helper text")).toBeInTheDocument();
+    expect(screen.getByRole("button")).toBeInTheDocument();
   });
 
   it("Field will show error text when invalid is true", async () => {

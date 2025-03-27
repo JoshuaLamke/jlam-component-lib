@@ -42,11 +42,10 @@ describe("Inputs/TextInput/Field", () => {
     disabled: false,
     required: true,
     helperText: "Please write some text",
-    // tooltip: {
-    //   content: "This is a tooltip",
-    //   Icon: <button>Info</button>,
-    //   defaultIconProps: { color: "blue" },
-    // },
+    tooltipProps: {
+      content: "This is a tooltip",
+      Icon: <button>Info</button>,
+    },
   };
 
   it("textInputField should render with edit state", async () => {

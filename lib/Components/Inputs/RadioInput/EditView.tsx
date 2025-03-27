@@ -29,6 +29,7 @@ export interface RadioInputEditViewProps<
     | "helperText"
     | "noValueMessage"
     | "label"
+    | "tooltipProps"
   > {
   formMethods: UseFormReturn<TData>;
   fieldProps: FieldAria["fieldProps"];

@@ -12,6 +12,7 @@ export interface TextInputEditViewProps<TData extends FieldValues>
     | "noValueMessage"
     | "helperText"
     | "label"
+    | "tooltipProps"
   > {
   formMethods: UseFormReturn<TData>;
   fieldProps: FieldAria["fieldProps"];

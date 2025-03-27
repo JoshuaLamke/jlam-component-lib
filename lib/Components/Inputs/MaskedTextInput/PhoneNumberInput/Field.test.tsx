@@ -35,11 +35,10 @@ describe("Inputs/MaskedTextInput/PhoneNumberInput/Field", () => {
     disabled: false,
     required: true,
     helperText: "Please write phone number",
-    // tooltip: {
-    //   content: "This is a tooltip",
-    //   Icon: <button>Info</button>,
-    //   defaultIconProps: { color: "blue" },
-    // },
+    tooltipProps: {
+      content: "This is a tooltip",
+      Icon: <button>Info</button>,
+    },
     maskOptions: {
       showMask: true,
     },

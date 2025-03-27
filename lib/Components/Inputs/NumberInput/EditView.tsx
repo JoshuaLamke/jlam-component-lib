@@ -14,6 +14,7 @@ export interface NumberInputEditViewProps<TData extends FieldValues>
     | "formMethods"
     | "helperText"
     | "label"
+    | "tooltipProps"
   > {
   formMethods: UseFormReturn<TData>;
   fieldProps: FieldAria["fieldProps"];

@@ -46,11 +46,10 @@ describe("Inputs/NumberInput/Field", () => {
       disabled: false,
       required: true,
       helperText: "Please write a number",
-      // tooltip: {
-      //   content: "This is a tooltip",
-      //   Icon: <button>Info</button>,
-      //   defaultIconProps: { color: "blue" },
-      // },
+      tooltipProps: {
+        content: "This is a tooltip",
+        Icon: <button>Info</button>,
+      },
     };
 
   it("numberInputField should render with edit state", async () => {

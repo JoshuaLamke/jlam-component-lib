@@ -10,7 +10,7 @@ import MaskedTextInputReadView, {
 import MaskedTextInputEditView, {
   MaskedTextInputEditViewProps,
 } from "./EditView";
-import { Field, FieldProps, omit } from "../../../";
+import { Field, FieldProps, omit, TooltipButtonProps } from "../../../";
 import { InputMaskProps, Replacement } from "@react-input/mask";
 import { FieldAria } from "react-aria";
 import {
@@ -37,12 +37,7 @@ export interface MaskedTextInputFieldProps<TData extends FieldValues> {
   disabled?: boolean;
   required?: boolean;
   helperText?: string;
-  // tooltip?: {
-  //   content: ReactNode;
-  //   Icon?: React.ReactElement<HTMLButtonElement>;
-  //   defaultIconProps?: DefaultTipIconProps;
-  //   tooltipProps?: Omit<TooltipProps, "children" | "content">;
-  // };
+  tooltipProps?: TooltipButtonProps;
   ReadView?: ForwardRefExoticComponent<
     MaskedTextInputReadViewProps & RefAttributes<HTMLElement>
   >;
@@ -67,6 +62,7 @@ const MaskedTextInputField = <TData extends FieldValues = FieldValues>(
     helperText,
     required,
     maskOptions,
+    tooltipProps,
   } = props;
 
   const formMethods = propFormMethods ?? useFormContext();
@@ -89,6 +85,7 @@ const MaskedTextInputField = <TData extends FieldValues = FieldValues>(
       "formMethods",
       "helperText",
       "label",
+      "tooltipProps",
     ]),
     formMethods,
   };
@@ -130,6 +127,7 @@ const MaskedTextInputField = <TData extends FieldValues = FieldValues>(
           isInvalid: !!formMethods.formState.errors[name],
           errorMessage: formMethods.formState.errors[name]?.message as string,
           required,
+          tooltipProps,
         }
       : {
           label,

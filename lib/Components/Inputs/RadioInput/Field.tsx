@@ -4,7 +4,13 @@ import {
   useFormContext,
   UseFormReturn,
 } from "react-hook-form";
-import { Field, FieldProps, omit, SelectOption } from "../../../";
+import {
+  Field,
+  FieldProps,
+  omit,
+  SelectOption,
+  TooltipButtonProps,
+} from "../../../";
 import RadioInputReadView, { RadioInputReadViewProps } from "./ReadView";
 import RadioInputEditView, { RadioInputEditViewProps } from "./EditView";
 import { ForwardRefExoticComponent, Ref, RefAttributes } from "react";
@@ -168,12 +174,7 @@ export interface RadioInputFieldProps<
   optionValueName: OptionValueName;
   optionLabelName: OptionLabelName;
   helperText?: string;
-  // tooltip?: {
-  //   content: React.ReactNode;
-  //   Icon?: React.ReactElement<HTMLButtonElement>;
-  //   defaultIconProps?: DefaultTipIconProps;
-  //   tooltipProps?: Omit<TooltipProps, "children" | "content">;
-  // };
+  tooltipProps?: TooltipButtonProps;
   ReadView?: ForwardRefExoticComponent<
     RadioInputReadViewProps<OptionValueName, OptionLabelName> &
       RefAttributes<HTMLElement>
@@ -208,6 +209,7 @@ const RadioInputField = <
     valueMapping,
     valueMappingOverride,
     options,
+    tooltipProps,
   } = props;
 
   const formMethods = propFormMethods ?? useFormContext();
@@ -235,6 +237,7 @@ const RadioInputField = <
       "state",
       "noValueMessage",
       "label",
+      "tooltipProps",
     ]),
     formMethods,
   };
@@ -276,6 +279,7 @@ const RadioInputField = <
           isInvalid: !!formMethods.formState.errors[name],
           errorMessage: formMethods.formState.errors[name]?.message as string,
           required,
+          tooltipProps,
         }
       : {
           label,

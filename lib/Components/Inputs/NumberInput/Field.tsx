@@ -6,7 +6,7 @@ import {
 } from "react-hook-form";
 import NumberInputReadView, { NumberInputReadViewProps } from "./ReadView";
 import NumberInputEditView, { NumberInputEditViewProps } from "./EditView";
-import { Field, FieldProps, omit } from "../../../";
+import { Field, FieldProps, omit, TooltipButtonProps } from "../../../";
 import { ForwardRefExoticComponent, Ref, RefAttributes } from "react";
 import { FieldAria } from "react-aria";
 
@@ -25,12 +25,7 @@ export interface NumberInputFieldProps<TData extends FieldValues> {
   minValue?: number;
   maxValue?: number;
   formatOptions?: Intl.NumberFormatOptions;
-  // tooltip?: {
-  //   content: React.ReactNode;
-  //   Icon?: React.ReactElement<HTMLButtonElement>;
-  //   defaultIconProps?: DefaultTipIconProps;
-  //   tooltipProps?: Omit<TooltipProps, "children" | "content">;
-  // };
+  tooltipProps?: TooltipButtonProps;
   ReadView?: ForwardRefExoticComponent<
     NumberInputReadViewProps & RefAttributes<HTMLElement>
   >;
@@ -54,6 +49,7 @@ const NumberInputField = <TData extends FieldValues = FieldValues>(
     state = "edit",
     helperText,
     required,
+    tooltipProps,
   } = props;
 
   const formMethods = propFormMethods ?? useFormContext();
@@ -72,6 +68,7 @@ const NumberInputField = <TData extends FieldValues = FieldValues>(
       "formMethods",
       "helperText",
       "label",
+      "tooltipProps",
     ]),
     formMethods,
   };
@@ -113,6 +110,7 @@ const NumberInputField = <TData extends FieldValues = FieldValues>(
           isInvalid: !!formMethods.formState.errors[name],
           errorMessage: formMethods.formState.errors[name]?.message as string,
           required,
+          tooltipProps,
         }
       : {
           label,
