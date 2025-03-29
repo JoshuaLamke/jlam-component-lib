@@ -6,7 +6,7 @@ import {
 } from "react-hook-form";
 import TextInputReadView, { TextInputReadViewProps } from "./ReadView";
 import TextInputEditView, { TextInputEditViewProps } from "./EditView";
-import { Field, FieldProps, omit, TooltipButtonProps } from "../../../";
+import { Field, FieldProps, omit, Size, TooltipButtonProps } from "../../../";
 import { FieldAria } from "react-aria";
 import {
   ForwardRefExoticComponent,
@@ -19,7 +19,7 @@ export interface TextInputFieldProps<TData extends FieldValues> {
   label?: ReactNode;
   name: Path<TData>;
   placeholder?: string;
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: Size;
   onChange?: (val: string) => void;
   onBlur?: () => void;
   state?: "read" | "edit";
@@ -52,6 +52,7 @@ const TextInputField = <TData extends FieldValues = FieldValues>(
     helperText,
     required,
     tooltipProps,
+    size,
   } = props;
 
   const formMethods = propFormMethods ?? useFormContext();
@@ -113,9 +114,11 @@ const TextInputField = <TData extends FieldValues = FieldValues>(
           errorMessage: formMethods.formState.errors[name]?.message as string,
           required,
           tooltipProps,
+          size,
         }
       : {
           label,
+          size,
         };
 
   return (

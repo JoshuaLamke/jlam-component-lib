@@ -10,7 +10,7 @@ import MaskedTextInputReadView, {
 import MaskedTextInputEditView, {
   MaskedTextInputEditViewProps,
 } from "./EditView";
-import { Field, FieldProps, omit, TooltipButtonProps } from "../../../";
+import { Field, FieldProps, omit, Size, TooltipButtonProps } from "../../../";
 import { InputMaskProps, Replacement } from "@react-input/mask";
 import { FieldAria } from "react-aria";
 import {
@@ -29,7 +29,7 @@ export interface MaskedTextInputFieldProps<TData extends FieldValues> {
   label?: ReactNode;
   name: Path<TData>;
   maskOptions: InputMaskOptions;
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: Size;
   onChange?: (val: string) => void;
   onBlur?: () => void;
   state?: "read" | "edit";
@@ -63,6 +63,7 @@ const MaskedTextInputField = <TData extends FieldValues = FieldValues>(
     required,
     maskOptions,
     tooltipProps,
+    size,
   } = props;
 
   const formMethods = propFormMethods ?? useFormContext();
@@ -128,9 +129,11 @@ const MaskedTextInputField = <TData extends FieldValues = FieldValues>(
           errorMessage: formMethods.formState.errors[name]?.message as string,
           required,
           tooltipProps,
+          size,
         }
       : {
           label,
+          size,
         };
 
   return (

@@ -9,6 +9,7 @@ import {
   FieldProps,
   omit,
   SelectOption,
+  Size,
   TooltipButtonProps,
 } from "../../../";
 import RadioInputReadView, { RadioInputReadViewProps } from "./ReadView";
@@ -155,7 +156,7 @@ export interface RadioInputFieldProps<
   label?: React.ReactNode;
   name: Path<TData>;
   options: SelectOption<OptionValueName, OptionLabelName>[];
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: Size;
   valueMapping?: ValueMapping;
   valueMappingOverride?: <
     OptionValueName extends string = "value",
@@ -210,6 +211,7 @@ const RadioInputField = <
     valueMappingOverride,
     options,
     tooltipProps,
+    size,
   } = props;
 
   const formMethods = propFormMethods ?? useFormContext();
@@ -280,9 +282,11 @@ const RadioInputField = <
           errorMessage: formMethods.formState.errors[name]?.message as string,
           required,
           tooltipProps,
+          size,
         }
       : {
           label,
+          size,
         };
 
   return (

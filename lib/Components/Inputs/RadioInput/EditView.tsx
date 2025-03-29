@@ -16,6 +16,7 @@ import {
   VisuallyHidden,
 } from "react-aria";
 import { RadioGroupState, useRadioGroupState } from "react-stately";
+import { Size, sizeStyleMap } from "../../..";
 
 export interface RadioInputEditViewProps<
   TData extends FieldValues,
@@ -48,6 +49,7 @@ interface RadioInputGroupProps<TData extends FieldValues> {
   children: React.ReactNode;
   onChange: (value: string) => void;
   onBlur?: () => void;
+  size: Size;
 }
 
 const RadioInputGroupInner = <TData extends FieldValues = FieldValues>(
@@ -62,6 +64,7 @@ const RadioInputGroupInner = <TData extends FieldValues = FieldValues>(
     fieldProps,
     onChange,
     onBlur,
+    size,
   }: RadioInputGroupProps<TData>,
   ref: Ref<HTMLElement>
 ) => {
@@ -103,6 +106,8 @@ const RadioInputGroupInner = <TData extends FieldValues = FieldValues>(
       {...radioGroupProps}
       ref={ref as Ref<HTMLDivElement>}
       className={`
+      ${sizeStyleMap[size].inputFontSize}
+      ${sizeStyleMap[size].inputHeight}
       flex flex-wrap rounded-md py-1 px-2 outline 
       focus:ring-[1.5px]
       ${disabled && "hover:outline-none outline-none"}
@@ -139,7 +144,7 @@ interface RadioInputProps<
   readOnly?: boolean;
   onBlur?: () => void;
   onChange: (value: string) => void;
-  size?: "sm" | "md" | "lg" | "xl";
+  size: Size;
 }
 
 const RadioInput = <
@@ -158,7 +163,7 @@ const RadioInput = <
 
   const radioRef = useRef<HTMLInputElement>(null);
 
-  const { inputProps, isSelected, isDisabled } = useRadio(
+  const { inputProps, isSelected } = useRadio(
     {
       value: optionValue,
       isDisabled: disabled,
@@ -169,7 +174,9 @@ const RadioInput = <
     radioRef
   );
   const { isFocusVisible, focusProps } = useFocusRing();
-  const strokeWidth = isSelected ? 5 : 1;
+  const strokeWidth = isSelected
+    ? sizeStyleMap[size].radioSelectedStrokeWidth
+    : 1;
 
   const canUpdateValue = !(disabled || readOnly);
   const opacity = disabled ? "opacity-40" : "opacity-100";
@@ -191,20 +198,25 @@ const RadioInput = <
           }}
         />
       </VisuallyHidden>
-      <svg width={24} height={24} aria-hidden="true" style={{ marginRight: 4 }}>
+      <svg
+        width={sizeStyleMap[size].radioSvgSize}
+        height={sizeStyleMap[size].radioSvgSize}
+        aria-hidden="true"
+        style={{ marginRight: 4 }}
+      >
         <circle
-          cx={12}
-          cy={12}
-          r={8 - strokeWidth / 2}
+          cx={sizeStyleMap[size].radioButtonSize}
+          cy={sizeStyleMap[size].radioButtonSize}
+          r={sizeStyleMap[size].radioButtonRadius - strokeWidth / 2}
           fill="none"
           stroke={"black"}
           strokeWidth={strokeWidth}
         />
         {isFocusVisible && (
           <circle
-            cx={12}
-            cy={12}
-            r={11}
+            cx={sizeStyleMap[size].radioButtonSize}
+            cy={sizeStyleMap[size].radioButtonSize}
+            r={sizeStyleMap[size].radioFocusRadius}
             fill="none"
             stroke="black"
             strokeWidth={1}
@@ -227,7 +239,7 @@ const RadioInputEditViewInner = <
     required,
     optionValueName,
     optionLabelName,
-    size,
+    size = "md",
     options,
     onBlur,
     onChange,
@@ -284,6 +296,7 @@ const RadioInputEditViewInner = <
             disabled={disabled}
             readOnly={readOnly}
             required={required}
+            size={size}
           >
             {options.map((option) => (
               <RadioInput

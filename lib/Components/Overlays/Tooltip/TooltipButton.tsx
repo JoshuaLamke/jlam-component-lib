@@ -2,6 +2,7 @@ import { TooltipTrigger } from "react-aria-components";
 import Tooltip, { TooltipProps } from "./Tooltip";
 import { Focusable, Placement, TooltipTriggerProps } from "react-aria";
 import DefaultTooltipIcon from "./DefaultTooltipIcon";
+import { Size, sizeStyleMap } from "../../../";
 
 export interface TooltipButtonProps {
   delay?: number;
@@ -19,6 +20,7 @@ export interface TooltipButtonProps {
   placement?: Placement;
   shouldFlip?: boolean;
   className?: string;
+  size?: Size;
 }
 
 const TooltipButton = ({
@@ -37,6 +39,7 @@ const TooltipButton = ({
   placement,
   shouldFlip,
   className,
+  size = "md",
 }: TooltipButtonProps) => {
   const tooltipTriggerProps: TooltipTriggerProps = {
     delay,
@@ -63,7 +66,11 @@ const TooltipButton = ({
     <TooltipTrigger {...tooltipTriggerProps}>
       <Focusable>
         <span role="button" className={className}>
-          {Icon ?? <DefaultTooltipIcon />}
+          {Icon ?? (
+            <DefaultTooltipIcon
+              size={sizeStyleMap[size].defaultTooltipIconSize}
+            />
+          )}
         </span>
       </Focusable>
       <Tooltip {...tooltipProps}>{content}</Tooltip>

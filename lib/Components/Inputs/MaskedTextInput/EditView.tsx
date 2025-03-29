@@ -1,4 +1,4 @@
-import { format } from "../../../";
+import { format, sizeStyleMap } from "../../../";
 import { Controller, FieldValues, UseFormReturn } from "react-hook-form";
 import { MaskedTextInputFieldProps } from "./Field";
 import { InputMask, Mask } from "@react-input/mask";
@@ -23,7 +23,7 @@ export interface MaskedTextInputEditViewProps<TData extends FieldValues>
 const MaskedTextInputEditViewInner = <TData extends FieldValues = FieldValues>(
   {
     name,
-    size,
+    size = "md",
     onChange,
     onBlur,
     formMethods,
@@ -86,6 +86,8 @@ const MaskedTextInputEditViewInner = <TData extends FieldValues = FieldValues>(
             {...maskOptions}
             {...textInputProps}
             className={`
+              ${sizeStyleMap[size].inputHeight}
+              ${sizeStyleMap[size].inputFontSize}
               rounded-md py-1 px-2 outline 
               focus:ring-[1.5px]
               disabled:bg-gray-200 read-only:bg-gray-200

@@ -186,6 +186,15 @@ const meta: Meta<typeof TextInputField> = {
         },
       },
     },
+    tooltipProps: {
+      description:
+        "A set of options to render a tooltip within the field label",
+      table: {
+        defaultValue: {
+          summary: "undefined",
+        },
+      },
+    },
   },
 };
 
@@ -198,6 +207,9 @@ export const Basic: Story = {
     label: "Basic Text Input Field",
     helperText: "Text input helper text.",
     name: "textInput",
+    tooltipProps: {
+      content: "I am a tooltip",
+    },
   },
 };
 
@@ -206,6 +218,9 @@ export const Error: Story = {
     label: "Error Text Input Field",
     helperText: "Text input helper text.",
     name: "textInput",
+    tooltipProps: {
+      content: "I am a tooltip",
+    },
   },
   argTypes: {
     name: {
@@ -238,6 +253,9 @@ export const Disabled: Story = {
     helperText: "Text input helper text.",
     name: "textInput",
     disabled: true,
+    tooltipProps: {
+      content: "I am a tooltip",
+    },
   },
   argTypes: {
     disabled: {
@@ -255,6 +273,9 @@ export const ReadOnly: Story = {
     helperText: "Text input helper text.",
     name: "textInput",
     readOnly: true,
+    tooltipProps: {
+      content: "I am a tooltip",
+    },
   },
   argTypes: {
     disabled: {

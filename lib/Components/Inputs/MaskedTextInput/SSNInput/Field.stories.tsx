@@ -191,6 +191,15 @@ const meta: Meta<typeof SSNInputField> = {
         },
       },
     },
+    tooltipProps: {
+      description:
+        "A set of options to render a tooltip within the field label",
+      table: {
+        defaultValue: {
+          summary: "undefined",
+        },
+      },
+    },
   },
 };
 
@@ -206,6 +215,9 @@ export const Basic: Story = {
     maskOptions: {
       showMask: true,
     },
+    tooltipProps: {
+      content: "I am a tooltip",
+    },
   },
 };
 
@@ -216,6 +228,9 @@ export const Error: Story = {
     name: "ssnInput",
     maskOptions: {
       showMask: true,
+    },
+    tooltipProps: {
+      content: "I am a tooltip",
     },
   },
   argTypes: {
@@ -252,6 +267,9 @@ export const Disabled: Story = {
     maskOptions: {
       showMask: true,
     },
+    tooltipProps: {
+      content: "I am a tooltip",
+    },
   },
   argTypes: {
     disabled: {
@@ -271,6 +289,9 @@ export const ReadOnly: Story = {
     readOnly: true,
     maskOptions: {
       showMask: true,
+    },
+    tooltipProps: {
+      content: "I am a tooltip",
     },
   },
   argTypes: {

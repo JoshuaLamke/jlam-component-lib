@@ -6,7 +6,7 @@ import {
 } from "react-hook-form";
 import NumberInputReadView, { NumberInputReadViewProps } from "./ReadView";
 import NumberInputEditView, { NumberInputEditViewProps } from "./EditView";
-import { Field, FieldProps, omit, TooltipButtonProps } from "../../../";
+import { Field, FieldProps, omit, Size, TooltipButtonProps } from "../../../";
 import { ForwardRefExoticComponent, Ref, RefAttributes } from "react";
 import { FieldAria } from "react-aria";
 
@@ -14,7 +14,7 @@ export interface NumberInputFieldProps<TData extends FieldValues> {
   label?: React.ReactNode;
   name: Path<TData>;
   placeholder?: string;
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: Size;
   onChange?: (val: number) => void;
   onBlur?: () => void;
   state?: "read" | "edit";
@@ -50,6 +50,7 @@ const NumberInputField = <TData extends FieldValues = FieldValues>(
     helperText,
     required,
     tooltipProps,
+    size,
   } = props;
 
   const formMethods = propFormMethods ?? useFormContext();
@@ -111,9 +112,11 @@ const NumberInputField = <TData extends FieldValues = FieldValues>(
           errorMessage: formMethods.formState.errors[name]?.message as string,
           required,
           tooltipProps,
+          size,
         }
       : {
           label,
+          size,
         };
 
   return (

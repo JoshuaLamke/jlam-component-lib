@@ -81,3 +81,69 @@ export type SelectOption<
       // Allow any other keys with the `string` value type
       [key: string]: any;
     };
+
+export type Size = "sm" | "md" | "lg" | "xl";
+
+export type SizeStyles = {
+  inputHeight: string;
+  inputFontSize: string;
+  radioSvgSize: number;
+  radioButtonSize: number;
+  radioButtonRadius: number;
+  radioFocusRadius: number;
+  radioSelectedStrokeWidth: number;
+  fieldLabelTextSize: string;
+  fieldHelperTextSize: string;
+  defaultTooltipIconSize: number;
+}
+
+export const sizeStyleMap: Record<Size, SizeStyles> = {
+  sm: {
+    inputHeight: "h-7",
+    inputFontSize: "text-sm",
+    radioSvgSize: 20,
+    radioButtonSize: 10,
+    radioButtonRadius: 7,
+    radioFocusRadius: 9,
+    radioSelectedStrokeWidth: 4.5,
+    fieldLabelTextSize: "text-xs",
+    fieldHelperTextSize: "text-xs",
+    defaultTooltipIconSize: 12,
+  },
+  md: {
+    inputHeight: "h-8",
+    inputFontSize: "",
+    radioSvgSize: 24,
+    radioButtonSize: 12,
+    radioButtonRadius: 8,
+    radioFocusRadius: 10,
+    radioSelectedStrokeWidth: 5,
+    fieldLabelTextSize: "text-sm",
+    fieldHelperTextSize: "text-xs",
+    defaultTooltipIconSize: 14,
+  },
+  lg: {
+    inputHeight: "h-9",
+    inputFontSize: "text-lg",
+    radioSvgSize: 28,
+    radioButtonSize: 14,
+    radioButtonRadius: 9,
+    radioFocusRadius: 11,
+    radioSelectedStrokeWidth: 5.5,
+    fieldLabelTextSize: "",
+    fieldHelperTextSize: "text-xs",
+    defaultTooltipIconSize: 16,
+  },
+  xl: {
+    inputHeight: "h-10",
+    inputFontSize: "text-xl",
+    radioSvgSize: 32,
+    radioButtonSize: 16,
+    radioButtonRadius: 10,
+    radioFocusRadius: 12,
+    radioSelectedStrokeWidth: 6,
+    fieldLabelTextSize: "text-lg",
+    fieldHelperTextSize: "text-sm",
+    defaultTooltipIconSize: 18,
+  }
+}

@@ -227,6 +227,15 @@ const meta: Meta<typeof NumberInputField> = {
         },
       },
     },
+    tooltipProps: {
+      description:
+        "A set of options to render a tooltip within the field label",
+      table: {
+        defaultValue: {
+          summary: "undefined",
+        },
+      },
+    },
   },
 };
 
@@ -239,6 +248,9 @@ export const Basic: Story = {
     label: "Basic Number Input Field",
     helperText: "Number input helper text.",
     name: "numberInput",
+    tooltipProps: {
+      content: "I am a tooltip",
+    },
   },
 };
 
@@ -247,6 +259,9 @@ export const Error: Story = {
     label: "Error Number Input Field",
     helperText: "Number input helper text.",
     name: "numberInput",
+    tooltipProps: {
+      content: "I am a tooltip",
+    },
   },
   argTypes: {
     name: {
@@ -279,6 +294,9 @@ export const Disabled: Story = {
     helperText: "Number input helper text.",
     name: "numberInput",
     disabled: true,
+    tooltipProps: {
+      content: "I am a tooltip",
+    },
   },
   argTypes: {
     disabled: {
@@ -296,6 +314,9 @@ export const ReadOnly: Story = {
     helperText: "Number input helper text.",
     name: "numberInput",
     readOnly: true,
+    tooltipProps: {
+      content: "I am a tooltip",
+    },
   },
   argTypes: {
     disabled: {

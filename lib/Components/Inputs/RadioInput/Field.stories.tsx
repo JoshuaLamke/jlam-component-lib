@@ -226,6 +226,15 @@ const meta: Meta<typeof RadioInputField> = {
         },
       },
     },
+    tooltipProps: {
+      description:
+        "A set of options to render a tooltip within the field label",
+      table: {
+        defaultValue: {
+          summary: "undefined",
+        },
+      },
+    },
   },
 };
 
@@ -258,6 +267,9 @@ export const Basic: Story = {
         value: "opt4",
       },
     ],
+    tooltipProps: {
+      content: "I am a tooltip",
+    },
   },
 };
 
@@ -286,6 +298,9 @@ export const Error: Story = {
         value: "opt4",
       },
     ],
+    tooltipProps: {
+      content: "I am a tooltip",
+    },
   },
   argTypes: {
     name: {
@@ -338,6 +353,9 @@ export const Disabled: Story = {
         value: "opt4",
       },
     ],
+    tooltipProps: {
+      content: "I am a tooltip",
+    },
   },
   argTypes: {
     disabled: {
@@ -375,6 +393,9 @@ export const ReadOnly: Story = {
         value: "opt4",
       },
     ],
+    tooltipProps: {
+      content: "I am a tooltip",
+    },
   },
   argTypes: {
     disabled: {

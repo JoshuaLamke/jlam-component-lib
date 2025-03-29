@@ -2,6 +2,7 @@ import { Controller, FieldValues, UseFormReturn } from "react-hook-form";
 import { TextInputFieldProps } from "./Field";
 import { FieldAria, useTextField } from "react-aria";
 import { forwardRef, Ref, RefObject } from "react";
+import { sizeStyleMap } from "../utils";
 
 export interface TextInputEditViewProps<TData extends FieldValues>
   extends Omit<
@@ -22,7 +23,7 @@ const TextInputEditViewInner = <TData extends FieldValues = FieldValues>(
   {
     name,
     placeholder,
-    size,
+    size = "md",
     onChange,
     onBlur,
     formMethods,
@@ -74,6 +75,8 @@ const TextInputEditViewInner = <TData extends FieldValues = FieldValues>(
           <input
             {...textInputProps}
             className={`
+              ${sizeStyleMap[size].inputHeight}
+              ${sizeStyleMap[size].inputFontSize}
               rounded-md py-1 px-2 outline 
               focus:ring-[1.5px]
               disabled:bg-gray-200 read-only:bg-gray-200

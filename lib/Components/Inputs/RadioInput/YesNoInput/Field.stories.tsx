@@ -191,6 +191,15 @@ const meta: Meta<typeof YesNoInputField> = {
         },
       },
     },
+    tooltipProps: {
+      description:
+        "A set of options to render a tooltip within the field label",
+      table: {
+        defaultValue: {
+          summary: "undefined",
+        },
+      },
+    },
   },
 };
 
@@ -203,6 +212,9 @@ export const Basic: Story = {
     label: "Basic YesNo Input Field",
     helperText: "YesNo input helper text.",
     name: "yesNoInput",
+    tooltipProps: {
+      content: "I am a tooltip",
+    },
   },
 };
 
@@ -211,6 +223,9 @@ export const Error: Story = {
     label: "Error YesNo Input Field",
     helperText: "YesNo input helper text.",
     name: "yesNoInput",
+    tooltipProps: {
+      content: "I am a tooltip",
+    },
   },
   argTypes: {
     name: {
@@ -243,6 +258,9 @@ export const Disabled: Story = {
     helperText: "YesNo input helper text.",
     name: "yesNoInput",
     disabled: true,
+    tooltipProps: {
+      content: "I am a tooltip",
+    },
   },
   argTypes: {
     disabled: {
@@ -260,6 +278,9 @@ export const ReadOnly: Story = {
     helperText: "YesNo input helper text.",
     name: "yesNoInput",
     readOnly: true,
+    tooltipProps: {
+      content: "I am a tooltip",
+    },
   },
   argTypes: {
     disabled: {

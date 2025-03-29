@@ -47,19 +47,31 @@ const RadioInputReadViewInner = <
   const { formatFromStoredValToDisplayVal } =
     valueMappingOverride?.(options) ?? defaultValueMappings[valueMapping];
 
+  const displayValue = formatFromStoredValToDisplayVal(
+    storedValue,
+    optionValueName,
+    optionLabelName
+  );
+
+  if (displayValue) {
+    return (
+      <div
+        className="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-900 rounded w-fit text-xs font-semibold"
+        ref={ref as Ref<HTMLDivElement>}
+        {...fieldProps}
+      >
+        {displayValue}
+      </div>
+    );
+  }
+
   return (
     <div
       className="text-gray-700"
       ref={ref as Ref<HTMLDivElement>}
       {...fieldProps}
     >
-      {formatFromStoredValToDisplayVal(
-        storedValue,
-        optionValueName,
-        optionLabelName
-      ) ||
-        noValueMessage ||
-        "None Selected"}
+      {noValueMessage || "None Selected"}
     </div>
   );
 };

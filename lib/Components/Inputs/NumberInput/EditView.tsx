@@ -3,6 +3,7 @@ import { NumberInputFieldProps } from "./Field";
 import { FieldAria, useNumberField } from "react-aria";
 import { forwardRef, Ref, RefObject } from "react";
 import { useNumberFieldState } from "react-stately";
+import { sizeStyleMap } from "../../../";
 
 export interface NumberInputEditViewProps<TData extends FieldValues>
   extends Omit<
@@ -24,7 +25,7 @@ const NumberInputEditViewInner = <TData extends FieldValues = FieldValues>(
   {
     name,
     placeholder,
-    size,
+    size = "md",
     onChange,
     onBlur,
     formMethods,
@@ -95,6 +96,8 @@ const NumberInputEditViewInner = <TData extends FieldValues = FieldValues>(
           <input
             {...numberInputProps}
             className={`
+              ${sizeStyleMap[size].inputHeight}
+              ${sizeStyleMap[size].inputFontSize}
               rounded-md py-1 px-2 outline 
               focus:ring-[1.5px]
               disabled:bg-gray-200 read-only:bg-gray-200
