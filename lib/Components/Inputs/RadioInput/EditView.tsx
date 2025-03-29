@@ -138,8 +138,8 @@ interface RadioInputProps<
   OptionValueName extends string,
   OptionLabelName extends string
 > {
-  optionValue: string;
-  optionLabel: string;
+  optionValue: OptionValueName;
+  optionLabel: OptionLabelName;
   disabled?: boolean;
   readOnly?: boolean;
   onBlur?: () => void;
